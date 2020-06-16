@@ -36,7 +36,8 @@ class XsellcoGoogle extends Module
 			Shop::setContext(Shop::CONTEXT_ALL);
 		}
 		return parent::install()
-			&& $this->registerHook('displayHeader');
+			&& $this->registerHook('displayHeader')
+			&& $this->registerHook('displayFooterProduct');
 	}
 
 	public function uninstall()
@@ -166,5 +167,22 @@ class XsellcoGoogle extends Module
 			)
 		);
 		return $this->display(__FILE__, 'gtag_general.tpl');
+	}
+
+	public function hookDisplayFooterProduct()
+	{
+		$product = new Product(Tools::getValue('id_product'));
+		if (!$product) {
+			return;
+		}
+
+		$this->context->smarty->assign(
+			array(
+				'conversionId' => Configuration::get('conversion_id'),
+				'productPrice' => $product->getPrice(),
+				'productId' => $product->id
+			)
+		);
+		return $this->display(__FILE__, 'gtag_product.tpl');
 	}
 }

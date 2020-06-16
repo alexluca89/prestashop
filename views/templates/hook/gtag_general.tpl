@@ -11,6 +11,5 @@
 		}
 		gtag('js', new Date());
 		gtag('config', 'AW-{$conversionId}');
-		console.log("test");
 	</script>
 {/if}
