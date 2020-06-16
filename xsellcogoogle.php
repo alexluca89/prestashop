@@ -37,7 +37,8 @@ class XsellcoGoogle extends Module
 		}
 		return parent::install()
 			&& $this->registerHook('displayHeader')
-			&& $this->registerHook('displayFooterProduct');
+			&& $this->registerHook('displayFooterProduct')
+			&& $this->registerHook('displayOrderConfirmation');
 	}
 
 	public function uninstall()
@@ -184,5 +185,30 @@ class XsellcoGoogle extends Module
 			)
 		);
 		return $this->display(__FILE__, 'gtag_product.tpl');
+	}
+
+	public function hookDisplayOrderConfirmation()
+	{
+		$order = new Order(Tools::getValue('id_order'));
+		if (!$order) {
+			return;
+		}
+
+		$productIds = [];
+		foreach ($order->getProducts() as $product) {
+			$productIds[] = $product->id;
+		}
+		$currency = new Currency($order->id_currency);
+		$this->context->smarty->assign(
+			array(
+				'conversionId' => Configuration::get('conversion_id'),
+				'conversionLabel' => Configuration::get('conversion_label'),
+				'orderId' => $order->id,
+				'orderCurrency' => $currency->iso_code,
+				'orderTotal' => $order->total_paid - $order->total_shipping,
+				'productIds' => json_encode($productIds),
+			)
+		);
+		return $this->display(__FILE__, 'gtag_order.tpl');
 	}
 }
