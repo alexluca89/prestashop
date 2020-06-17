@@ -11,7 +11,7 @@ class XsellcoGoogle extends Module
 	public function __construct($name = null, Context $context = null)
 	{
 		$this->name = 'xsellcogoogle';
-		$this->tab = 'administration';
+		$this->tab = 'front_office_features';
 		$this->version = '1.0.0';
 		$this->author = 'xSellco';
 		$this->need_instance = 0;
