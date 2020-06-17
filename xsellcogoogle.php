@@ -7,13 +7,12 @@ if (!defined('_PS_VERSION_')) {
 
 class XsellcoGoogle extends Module
 {
-	const CLASS_NAME = 'XsellcoGoogle';
 
 	public function __construct($name = null, Context $context = null)
 	{
 		$this->name = 'xsellcogoogle';
 		$this->tab = 'administration';
-		$this->version = '1 .0.0';
+		$this->version = '1.0.0';
 		$this->author = 'xSellco';
 		$this->need_instance = 0;
 		$this->ps_versions_compliancy = [
