@@ -196,7 +196,7 @@ class XsellcoGoogle extends Module
 
 		$productIds = [];
 		foreach ($order->getProducts() as $product) {
-			$productIds[] = $product->id;
+			$productIds[] = (int)$product['product_id'];
 		}
 		$currency = new Currency($order->id_currency);
 		$this->context->smarty->assign(

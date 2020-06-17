@@ -11,5 +11,4 @@
 		'ecomm_prodid': {$productIds},
 		'ecomm_totalvalue': {$orderTotal}
 	});
-	console.log('confirmed!');
 </script>
